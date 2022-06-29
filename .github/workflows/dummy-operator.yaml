@@ -1,0 +1,61 @@
+name: dummy
+on:
+  pull_request:
+    branches: 
+      - main
+    paths:
+      - ".github/workflows/dummy-operator.yml"
+      - "operators/dummy/**/*"
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up Go 1.18
+        uses: actions/setup-go@v1
+        with:
+          go-version: 1.18
+
+      - name: Check out code
+        uses: actions/checkout@v1
+
+      - name: Buld code
+        run: make
+        working-directory: operators/dummy
+
+  acceptance-test:
+    name: Acceptance test
+    runs-on: ubuntu-latest
+    env:
+      DOCKER_LATEST: 1
+      VERSION: latest
+
+    steps:
+      - name: Set up Go 1.18
+        uses: actions/setup-go@v1
+        with:
+          go-version: 1.18
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build dummy-operator Docker image
+        run: |
+          make docker-build
+        working-directory: operators/dummy
+
+      - name: Create k3d Cluster
+        run: |
+          make setup-dev
+        working-directory: operators/dummy
+
+      - name: Load Docker images to kind
+        run: |
+          k3d image import dummy-operator:latest -c dummy
+
+      - name: Deploying dummy-operator
+        run: |
+          make deploy
+        working-directory: operators/dummy
