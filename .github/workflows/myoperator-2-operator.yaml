@@ -5,7 +5,7 @@ on:
       - main
     paths:
       - ".github/workflows/myoperator-2-operator.yml"
-      - "operators/myoperator-2"
+      - "operators/myoperator-2/**/*"
 
 jobs:
   build:
