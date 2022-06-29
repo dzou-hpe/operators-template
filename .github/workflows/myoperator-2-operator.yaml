@@ -1,4 +1,4 @@
-name: CI
+name: myoperator-2
 on:
   pull_request:
     branches: 
