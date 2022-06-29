@@ -1,11 +1,11 @@
-name: @REPLACEME@
+name: myoperator-2
 on:
   pull_request:
     branches: 
       - main
     paths:
-      - ".github/workflows/@REPLACEME@-operator.yml"
-      - "operators/@REPLACEME@/**/*"
+      - ".github/workflows/myoperator-2-operator.yml"
+      - "operators/myoperator-2/**/*"
 
 jobs:
   build:
@@ -23,7 +23,7 @@ jobs:
 
       - name: Buld code
         run: make
-        working-directory: operators/@REPLACEME@
+        working-directory: operators/myoperator-2
 
   acceptance-test:
     name: Acceptance test
@@ -41,21 +41,21 @@ jobs:
       - name: Checkout code
         uses: actions/checkout@v2
 
-      - name: Build @REPLACEME@-operator Docker image
+      - name: Build myoperator-2-operator Docker image
         run: |
           make docker-build
-        working-directory: operators/@REPLACEME@
+        working-directory: operators/myoperator-2
 
       - name: Create k3d Cluster
         run: |
           make setup-dev
-        working-directory: operators/@REPLACEME@
+        working-directory: operators/myoperator-2
 
       - name: Load Docker images to kind
         run: |
-          k3d image import @REPLACEME@-operator:latest -c @REPLACEME@
+          k3d image import myoperator-2-operator:latest -c myoperator-2
 
-      - name: Deploying @REPLACEME@-operator
+      - name: Deploying myoperator-2-operator
         run: |
           make deploy
-        working-directory: operators/@REPLACEME@
+        working-directory: operators/myoperator-2
