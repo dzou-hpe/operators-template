@@ -1,0 +1,24 @@
+
+K3D_CLUSTER_NAME = operators
+.PHONY: setup-dev
+setup-dev:
+	curl -s https://raw.githubusercontent.com/k3d-io/k3d/main/install.sh | bash
+	k3d cluster delete ${K3D_CLUSTER_NAME} || true
+	k3d cluster create ${K3D_CLUSTER_NAME} \
+		-a 2 \
+		--agents-memory 1g \
+		--servers-memory 1g \
+		--no-lb \
+		--wait \
+		--k3s-arg "--node-name=worker-1"@agent:0 \
+		--k3s-arg "--node-name=worker-2"@agent:1 \
+		--k3s-arg "--node-name=master"@server:0
+	k3d kubeconfig merge ${K3D_CLUSTER_NAME} --kubeconfig-switch-context
+
+.PHONY: get-kubeconfig
+get-kubeconfig:
+	k3d kubeconfig write ${K3D_CLUSTER_NAME}
+	export KUBECONFIG=~/.k3d/kubeconfig-${K3D_CLUSTER_NAME}.yaml
+
+.PHONY: all
+all: build

@@ -1,0 +1,61 @@
+name: CI
+on:
+  pull_request:
+    branches: 
+      - main
+    paths:
+      - ".github/workflows/@REPLACEME@-operator.yml"
+      - "operators/@REPLACEME@"
+
+jobs:
+  build:
+    name: Build
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Set up Go 1.18
+        uses: actions/setup-go@v1
+        with:
+          go-version: 1.18
+
+      - name: Check out code
+        uses: actions/checkout@v1
+
+      - name: Buld code
+        run: make
+        working-directory: operators/@REPLACEME@
+
+  acceptance-test:
+    name: Acceptance test
+    runs-on: ubuntu-latest
+    env:
+      DOCKER_LATEST: 1
+      VERSION: latest
+
+    steps:
+      - name: Set up Go 1.18
+        uses: actions/setup-go@v1
+        with:
+          go-version: 1.18
+
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Build @REPLACEME@-operator Docker image
+        run: |
+          make docker-build
+        working-directory: operators/@REPLACEME@
+
+      - name: Create k3d Cluster
+        run: |
+          make setup-dev
+        working-directory: operators/@REPLACEME@
+
+      - name: Load Docker images to kind
+        run: |
+          k3d image import @REPLACEME@-operator:latest -c @REPLACEME@
+
+      - name: Deploying @REPLACEME@-operator
+        run: |
+          make deploy
+        working-directory: operators/@REPLACEME@
