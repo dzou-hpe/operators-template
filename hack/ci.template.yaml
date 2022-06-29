@@ -5,7 +5,7 @@ on:
       - main
     paths:
       - ".github/workflows/@REPLACEME@-operator.yml"
-      - "operators/@REPLACEME@"
+      - "operators/@REPLACEME@/**/*"
 
 jobs:
   build:
