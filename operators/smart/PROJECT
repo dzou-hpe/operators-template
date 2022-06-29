@@ -1,0 +1,6 @@
+domain: my.domain
+layout:
+- go.kubebuilder.io/v3
+projectName: smart
+repo: github.com/dzou-hpe/operators-template/smart
+version: "3"
