@@ -1,6 +1,0 @@
-domain: my.domain
-layout:
-- go.kubebuilder.io/v3
-projectName: myoperator-2
-repo: github.com/dzou-hpe/operators-template/myoperator-2
-version: "3"
