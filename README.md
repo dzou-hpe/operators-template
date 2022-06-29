@@ -15,4 +15,4 @@ https://github.com/dzou-hpe/operators-template/pull/3/checks
 this shows you how build is done automatically when you created a PR with two new Operators
 
 ## Using `kubebuilder`
-`cd` in the operator you want to [create API](https://book.kubebuilder.io/quick-start.html#create-an-api) and follow official doc
+`cd` into the operator you want to [create API](https://book.kubebuilder.io/quick-start.html#create-an-api) and follow official doc
