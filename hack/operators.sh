@@ -19,7 +19,7 @@ GIT_REPO=$(cat .git/config  | grep url | awk -F'@' '{print $2}' | awk -F':' '{pr
 cwd=$(pwd)
 mkdir -p operators/${OPERATOR_NAME}
 cd operators/${OPERATOR_NAME}
-kubebuilder init --domain my.domain --repo github.com/${GIT_REPO}
+kubebuilder init --domain my.domain --repo github.com/${GIT_REPO}/${OPERATOR_NAME}
 
 cp Makefile Makefile.tmp
 sed  -e "s/controller:latest/${OPERATOR_NAME}-operator:latest/g"  \
