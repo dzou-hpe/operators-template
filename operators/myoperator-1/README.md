@@ -1,5 +1,5 @@
-# myoperator-2
-// TODO(user): Add simple overview of use/purpose asdf
+# myoperator-1
+// TODO(user): Add simple overview of use/purpose
 
 ## Description
 // TODO(user): An in-depth paragraph about your project and overview of use
@@ -18,13 +18,13 @@ kubectl apply -f config/samples/
 2. Build and push your image to the location specified by `IMG`:
 	
 ```sh
-make docker-build docker-push IMG=<some-registry>/myoperator-2:tag
+make docker-build docker-push IMG=<some-registry>/myoperator-1:tag
 ```
 	
 3. Deploy the controller to the cluster with the image specified by `IMG`:
 
 ```sh
-make deploy IMG=<some-registry>/myoperator-2:tag
+make deploy IMG=<some-registry>/myoperator-1:tag
 ```
 
 ### Uninstall CRDs
